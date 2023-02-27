@@ -10,7 +10,7 @@ class Book extends Model
     use HasFactory;
 
     protected $fillable = [
-        'isbn-13',// nella validation mettiamo una limitazione sui numero dei caratteri : esattamente 13
+        'isbn_13',// nella validation mettiamo una limitazione sui numero dei caratteri : esattamente 13
         /**
          * attenzione che il title e series non sono unique e lo slug dovrà avere un contatore (es. zanna-bianca-2')
          * si può creare lo slug
