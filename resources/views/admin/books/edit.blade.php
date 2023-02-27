@@ -8,7 +8,7 @@
 | available to the Admin.
 |
 --}}
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('pageTitle' , 'My favorite Books store - book modify')
 

@@ -22,7 +22,7 @@
 
             <div class="form-outline mb-3">
                 <label for="isbn" class="form-label">ISBN</label>
-                <input type="text" class="my_form-el form-control @error('isbn') is-invalid @enderror" id="isbn" name="isbn" aria-describedby="isbn-errors" placeholder="Insert the isbn" minlength="13" maxlength="13" value="{{old('isbn',$book->isbn)}}">
+                <input type="text" class="my_form-el form-control @error('isbn') is-invalid @enderror" id="isbn" name="isbn_13" aria-describedby="isbn-errors" placeholder="Insert the isbn" minlength="13" maxlength="13" value="{{old('isbn',$book->isbn)}}">
                 @error('isbn')
                 <div class="form-text invalid-feedback">{{$message}}</div>
                 @enderror

@@ -9,16 +9,16 @@ use Illuminate\Validation\Rule;
 
 class BookController extends Controller
 {
-    protected $rules= [
-        'isbn_13'=>'required|unique:books|size:13|string',
-        'title'=>'required|string|min:2|max:80',
-        'series'=>'required|string|min:2|max:50',
-        'author'=>'required|string|min:2|max:100|regex:/^[a-zA-Z ]+$/',
-        'publisher'=> 'required|string|min:2|max:80',
-        'publication_date'=> 'required|intiger|between:1450, 2023|',
-        'plot'=>'required|string|min:15|max:65535',
-        'genre'=> 'required|string|min:2|max:40',
-        'cover_image'=>'required|string|min:5|max:65535'
+    protected $rules = [
+        'isbn_13' => 'required|unique:books|size:13|string',
+        'title' => 'required|string|min:2|max:80',
+        'series' => 'required|string|min:2|max:50',
+        'author' => 'required|string|min:2|max:100|regex:/^[a-zA-Z .,]+$/',
+        'publisher' => 'required|string|min:2|max:80',
+        'publication_date' => 'required|date|after_or_equal:\'1450-01-01\'|before_or_equal:today',
+        'plot' => 'required|string|min:15|max:65535',
+        'genre' => 'required|string|min:2|max:40',
+        'cover_image' => 'required|image|max:6000'
     ];
 
     /**
@@ -28,7 +28,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books= Book::all();
+        $books = Book::all();
         return view('admin.books.index', compact('books'));
     }
 
@@ -39,7 +39,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('admin.books.create', ['book'=>new Book()]);
+        return view('admin.books.create', ['book' => new Book()]);
     }
 
     /**
@@ -51,13 +51,13 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $rules = $this->rules;
-        $data= $request->validate($rules);
+        $data = $request->validate($rules);
 
-        $newBook= new Book();
+        $newBook = new Book();
         $newBook->fill($data);
         $newBook->save();
 
-        return redirect()->route('admin.project.show', $newBook->id)->with('message', "$newBook->title è stato creato con successo")->with('alert->type', 'success');
+        return redirect()->route('admin.books.show', $newBook->id)->with('message', "$newBook->title è stato creato con successo")->with('alert->type', 'success');
     }
 
     /**
@@ -92,11 +92,11 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $rules = $this->rules;
-        $rules['isbn_13']=['required', 'size:13', 'string', Rule::unique('books')->ignore($book->id)];
-        $data= $request->validate($rules);
+        $rules['isbn_13'] = ['required', 'size:13', 'string', Rule::unique('books')->ignore($book->id)];
+        $data = $request->validate($rules);
 
         $book->update($data);
-    
+
         redirect()->route('admin.books.show', compact('book'));
     }
 
