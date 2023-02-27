@@ -105,7 +105,7 @@ class BookController extends Controller
         $book->update($data);
 
 
-        redirect()->route('admin.books.show', compact('book'));
+        return redirect()->route('admin.books.show', compact('book'));
     }
 
     /**
