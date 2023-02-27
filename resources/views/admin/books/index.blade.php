@@ -55,5 +55,6 @@
             {{-- {{ $books->links() }} --}}
         </div>
     </div>
+    {{$books->links()}}
 </div>
 @endsection
