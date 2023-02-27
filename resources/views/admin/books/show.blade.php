@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container py-5">
-    <div class="row">
+    <div class="row justify-content-between">
         <div class="col-12">
-            <div class="card text-center">
+            <div class="card text-center mb-4">
                 <div class="card-header">
                     <h3>{{$book->title}}</h3>
                 </div>
@@ -47,6 +47,25 @@
                 </div>
             </div>
         </div>
+        @if (isset($previousBook))
+            <div class="col-2">
+                <a class="btn btn-outline-primary" href="{{route('admin.books.show',$previousBook->id)}}">previous</a>
+            </div>
+        @else
+            <div class="col-2">
+                <a class="btn btn-outline-secondary disabled" href="">previous</a>
+            </div>
+        @endif
+
+        @if (isset($nextBook))
+            <div class="col-2">
+                <a class="btn btn-outline-primary" href="{{route('admin.books.show',$nextBook->id)}}">next</a>
+            </div>
+        @else
+            <div class="col-2">
+                <a class="btn btn-outline-secondary disabled" href="">next</a>
+            </div>
+        @endif
     </div>
 </div>
 @endsection
