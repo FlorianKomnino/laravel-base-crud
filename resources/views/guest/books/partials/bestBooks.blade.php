@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+
 
 <section id="jumbo" class="jumbotron p-5 mb-3">
     <div class="container">
@@ -53,4 +52,3 @@
         </div>
     </div>
 </section>
-@endsection

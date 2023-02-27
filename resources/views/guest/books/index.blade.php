@@ -6,6 +6,8 @@
 @endphp
 
 @section('content')
+
+@include('guest.books.partials.bestBooks')
     <div class="container">
         <div class="row g-3 py-3">
             {{ $books->links() }}

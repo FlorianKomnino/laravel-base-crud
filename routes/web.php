@@ -23,9 +23,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('guest.')
     ->group(function () {
-        Route::get('/', [GuestBookController::class, 'index']);
+        // Route::get('/', [GuestBookController::class, 'index']);
+        // Route::get('/', function() {
+        //     return view('welcome')
+        // });
         Route::resource('/books', GuestBookController::class);
-});
+    });
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
