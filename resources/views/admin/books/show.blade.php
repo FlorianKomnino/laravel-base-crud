@@ -19,7 +19,7 @@
                             <li><span class="text-secondary font-weight-bold">genre: </span>{{$book->genre}}</li>
                         </ul>
                     </div>
-                    <div class="col-5 bg-dark">
+                    <div class="col-5 bg-dark px-3">
                         {{--@if ( str_starts_with($book->cover_image, 'http'))
                             <img src="{{ $book->cover_image }}" alt="book image" class="img-fluid">
                         @else
@@ -28,22 +28,23 @@
                     </div>
                 </div>
 
-
-            </div>
-            <div class="homeButtonContainer text-center mt-5">
-                <a href="{{route('admin.books.index')}}" class="btn btn-sm btn-primary">Back to the list</a>
-            </div>
-            <div class="homeButtonContainer text-center mt-2">
-                <a href="{{route('admin.books.edit', $book->id)}}" class="btn btn-sm btn-warning">Edit</a>
-            </div>
-            <div class="homeButtonContainer text-center mt-2">
-                <form action="{{route('admin.books.destroy', $book->id)}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger">
-                        Delete
-                    </button>
-                </form>
+                <div class="row col-4 ms-auto me-3 my-3">
+                    <div class="col-6 homeButtonContainer text-center">
+                        <a href="{{route('admin.books.index')}}" class="btn btn-sm btn-primary">Back to the list</a>
+                    </div>
+                    <div class="col-3 homeButtonContainer text-center">
+                        <a href="{{route('admin.books.edit', $book->id)}}" class="btn btn-sm btn-warning">Edit</a>
+                    </div>
+                    <div class="col-3 homeButtonContainer text-center">
+                        <form action="{{route('admin.books.destroy', $book->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
