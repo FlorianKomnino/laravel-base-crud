@@ -68,8 +68,8 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        $previousBook = Book::where('id', '>', $book->id)->orderBy('id')->first();
-        $nextBook = Book::where('id', '<', $book->id)->orderBy('id', 'DESC')->first();
+        $previousBook = Book::where('id', '<', $book->id)->orderBy('id')->first();
+        $nextBook = Book::where('id', '>', $book->id)->orderBy('id', 'DESC')->first();
         return view('admin.books.show', compact('book', 'previousBook', 'nextBook'));
     }
 
