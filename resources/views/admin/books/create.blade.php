@@ -9,8 +9,9 @@
 |
 --}}
 @extends('layouts.app')
-@section('pageTitle' , 'My favorite Books store - create a book record')
+
+@section('pageTitle' , "My favorite Books store - create a book record")
+
 @section('content')
 @include('admin.books.partials.editCreate',["route" => "admin.books.store"  , "formMethod" => "POST" ])
-@endsection
 @endsection

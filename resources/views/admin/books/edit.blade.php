@@ -9,8 +9,9 @@
 |
 --}}
 @extends('layouts.app')
+
 @section('pageTitle' , 'My favorite Books store - book modify')
+
 @section('content')
-@include('admin.books.partials.editCreate',["route" => "admin.books.update"  , "formMethod" => "PUT" ])
-@endsection
+@include('admin.books.partials.editCreate',["route" => "admin.books.update"  , "formMethod" => "PUT" ])    
 @endsection

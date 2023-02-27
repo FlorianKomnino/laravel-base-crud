@@ -13,12 +13,12 @@ class BookController extends Controller
         'isbn_13' => 'required|unique:books|size:13|string',
         'title' => 'required|string|min:2|max:80',
         'series' => 'required|string|min:2|max:50',
-        'author' => 'required|string|min:2|max:100|regex:/^[a-zA-Z ]+$/',
+        'author' => 'required|string|min:2|max:100|regex:/^[a-zA-Z .,]+$/',
         'publisher' => 'required|string|min:2|max:80',
-        'publication_date' => 'required|intiger|between:1450, 2023|',
+        'publication_date' => 'required|date|after_or_equal:\'1450-01-01\'|before_or_equal:today',
         'plot' => 'required|string|min:15|max:65535',
         'genre' => 'required|string|min:2|max:40',
-        'cover_image' => 'required|string|min:5|max:65535'
+        'cover_image' => 'required|image|max:6000'
     ];
 
     /**
@@ -40,6 +40,7 @@ class BookController extends Controller
     public function create()
     {
         return view('admin.books.create', ['book' => new Book()]);
+        return view('admin.books.create', ['book' => new Book()]);
     }
 
     /**
@@ -52,12 +53,14 @@ class BookController extends Controller
     {
         $rules = $this->rules;
         $data = $request->validate($rules);
+        $data = $request->validate($rules);
 
+        $newBook = new Book();
         $newBook = new Book();
         $newBook->fill($data);
         $newBook->save();
 
-        return redirect()->route('admin.project.show', $newBook->id)->with('message', "$newBook->title è stato creato con successo")->with('alert->type', 'success');
+        return redirect()->route('admin.books.show', $newBook->id)->with('message', "$newBook->title è stato creato con successo")->with('alert->type', 'success');
     }
 
     /**
@@ -96,8 +99,11 @@ class BookController extends Controller
         $rules = $this->rules;
         $rules['isbn_13'] = ['required', 'size:13', 'string', Rule::unique('books')->ignore($book->id)];
         $data = $request->validate($rules);
+        $rules['isbn_13'] = ['required', 'size:13', 'string', Rule::unique('books')->ignore($book->id)];
+        $data = $request->validate($rules);
 
         $book->update($data);
+
 
         redirect()->route('admin.books.show', compact('book'));
     }
@@ -122,7 +128,7 @@ class BookController extends Controller
      */
     public function trashed()
     {
-        $trashedBooks= Book::onlyTrashed()->get();
+        $trashedBooks = Book::onlyTrashed()->get();
         return view('admin.books.trashed', compact('trashedBooks'));
     }
 
@@ -133,40 +139,43 @@ class BookController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function forceDelete($id){
+    public function forceDelete($id)
+    {
         // keep forceDelete title
-        $book= Book::onlyTrashed()->where('id', $id)->first();
-        $titleRestoreBook= $book->title;
-        
+        $book = Book::onlyTrashed()->where('id', $id)->first();
+        $titleRestoreBook = $book->title;
+
         Book::where("id", $id)->withTrashed()->forceDelete();
         return redirect()->route('admin.trashed')->with("message", "$titleRestoreBook è stato cancellato definitivamente")->with("alert-type", "warning");;
-     }
+    }
 
-     /**
+    /**
      * Restore the specified resource from soft delete.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
 
-     public function restore($id){
+    public function restore($id)
+    {
         // keep restore title
-        $book= Book::onlyTrashed()->where('id', $id)->first();
-        $titleRestoreBook= $book->title;
+        $book = Book::onlyTrashed()->where('id', $id)->first();
+        $titleRestoreBook = $book->title;
 
         Book::where("id", $id)->withTrashed()->restore();
 
         return redirect()->route('admin.trashed')->with("message", "$titleRestoreBook è stato ripristinato")->with("alert-type", "success");;
-     }
+    }
 
-     /**
+    /**
      * search filter by title
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request){
-        $projects=Book::where("title", "LIKE", $request->title."%")->orderBy("date", "DESC")->paginate(6);
+    public function search(Request $request)
+    {
+        $projects = Book::where("title", "LIKE", $request->title . "%")->orderBy("date", "DESC")->paginate(6);
         return view("admin.project.index", compact("projects"));
     }
 }
