@@ -68,7 +68,6 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        dd('ciao');
         return view('admin.books.show', compact('book'));
     }
 
