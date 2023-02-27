@@ -28,4 +28,9 @@ class Book extends Model
         'genre',
         'cover_image',
     ];
+
+    //per poter mostrare il dato con un formato specifico, vedi in guest.books.index il '->format(Y)'
+    protected $dates = [
+        'publication_date',
+    ];
 }
