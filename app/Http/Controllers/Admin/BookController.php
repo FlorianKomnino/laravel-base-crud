@@ -103,7 +103,7 @@ class BookController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Soft delete the specified resource from storage.
      *
      * @param  Book $book
      * @return \Illuminate\Http\Response
@@ -113,5 +113,60 @@ class BookController extends Controller
         $book->delete();
 
         return redirect()->route('admin.books.index')->with('message', "$book->title è stato eliminato con successo")->with('alert->type', 'warning');
+    }
+
+    /**
+     * Display a listing of trash.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        $trashedBooks= Book::onlyTrashed()->get();
+        return view('admin.books.trashed', compact('trashedBooks'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+
+     public function forceDelete($id){
+        // keep forceDelete title
+        $book= Book::onlyTrashed()->where('id', $id)->first();
+        $titleRestoreBook= $book->title;
+        
+        Book::where("id", $id)->withTrashed()->forceDelete();
+        return redirect()->route('admin.trashed')->with("message", "$titleRestoreBook è stato cancellato definitivamente")->with("alert-type", "warning");;
+     }
+
+     /**
+     * Restore the specified resource from soft delete.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+
+     public function restore($id){
+        // keep restore title
+        $book= Book::onlyTrashed()->where('id', $id)->first();
+        $titleRestoreBook= $book->title;
+
+        Book::where("id", $id)->withTrashed()->restore();
+
+        return redirect()->route('admin.trashed')->with("message", "$titleRestoreBook è stato ripristinato")->with("alert-type", "success");;
+     }
+
+     /**
+     * search filter by title
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request){
+        $projects=Book::where("title", "LIKE", $request->title."%")->orderBy("date", "DESC")->paginate(6);
+        return view("admin.project.index", compact("projects"));
     }
 }

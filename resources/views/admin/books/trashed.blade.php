@@ -11,11 +11,8 @@
             @endif
         </div>
         <div class="col-12">
-            <a href="{{route('admin.books.create')}}" class="btn btn-success">
-                Create new book
-            </a>
-            <a href="{{route('admin.trashed')}}" class="btn btn-warning">
-                Trash
+            <a href="{{route('admin.books.index')}}" class="btn btn-success">
+                Back to book table
             </a>
         </div>
         <div class="col-12">
@@ -30,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($books as $book)
+                    @foreach ($trashedBooks as $book)
                         <tr>
                             <th scope="row">{{ $book->id }}</th>
                             <td>{{ $book->title }}</td>
@@ -38,9 +35,8 @@
 
                             <td>
                                 <div class="actionButtons d-flex">
-                                    <a href="{{route('admin.books.show', $book->id)}}" class="btn btn-sm btn-primary">Show</a>
-                                    <a href="{{route('admin.books.edit', $book->id)}}" class="btn btn-sm btn-warning mx-2">Edit</a>
-                                    <form action="{{route('admin.books.destroy', $book->id)}}" method="POST">
+                                    <a href="{{ route('admin.restore', $book->id) }}" class="btn btn-sm btn-success">Restore</a>
+                                    <form action="{{route('admin.forceDelete', $book->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger">
@@ -58,6 +54,5 @@
             {{-- {{ $books->links() }} --}}
         </div>
     </div>
-    {{$books->links()}}
 </div>
 @endsection
