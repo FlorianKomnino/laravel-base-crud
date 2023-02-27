@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Book;
 
 class BookController extends Controller
 {
@@ -14,7 +15,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $books= Book::all();
+        return view('admin.books.index', compact('books'));
     }
 
     /**
@@ -24,7 +26,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.books.create', ['book'=>new Book()]);
     }
 
     /**
@@ -35,51 +37,63 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data= $request->validate();
+        
+        $newBook= new Book();
+        $newBook->fill($data);
+        $newBook->save();
+
+        return redirect()->route('admin.project.show', $newBook->id)->with('message', "$newBook->title è stato creato con successo")->with('alert->type', 'success');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Book $book
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Book $book)
     {
-        //
+        return view('admin.books.show', compact('book'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Book $book
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Book $book)
     {
-        //
+        return view("admin.books.edit", compact("book"));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Book $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Book $book)
     {
-        //
+        $data= $request->validate();
+
+        $book->update($data);
+    
+        redirect()->route('admin.books.show', compact('book'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Book $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return redirect()->route('admin.books.index')->with('message', "$book->title è stato eliminato con successo")->with('alert->type', 'warning');
     }
 }
