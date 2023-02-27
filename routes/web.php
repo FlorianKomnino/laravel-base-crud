@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/books/search', [AdminProjectsController::class, "search"])->name("search");
     Route::get('/books/trashed', [AdminBookController::class, 'trashed'])->name('trashed');
     Route::get('/books/{id}/restore', [AdminBookController::class, 'restore'])->name('restore');
     Route::delete('/books/{id}/force-delete', [AdminBookController::class, 'forceDelete'])->name('forceDelete');
