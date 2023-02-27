@@ -112,4 +112,28 @@ class BookController extends Controller
 
         return redirect()->route('admin.books.index')->with('message', "$book->title è stato eliminato con successo")->with('alert->type', 'warning');
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        $trashedBooks= Book::onlyTrashed()->get();
+        return view('admin.books.trashed', compact('trashedBooks'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Book $book
+     * @return \Illuminate\Http\Response
+     */
+
+     public function forceDelete(Book $book){
+        $book->forceDelete();
+
+        redirect()->route('admin.books.trash');
+     }
 }
