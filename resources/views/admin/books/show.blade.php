@@ -6,21 +6,27 @@
         <div class="col-12">
             <div class="card text-center">
                 <div class="card-header">
-                    {{$book->title}}
+                    <h3>{{$book->title}}</h3>
                 </div>
-
-                {{-- <div class="card-image mt-3">
-                    @if ( str_starts_with($book->image, 'http'))
-                        <img src="{{ $book->image }}" alt="book image" class="img-fluid">
-                    @else
-                        <img src="{{ asset('storage/' . $book->image) }}" alt="book image" class="img-fluid">
-                    @endif
-                </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        {{$book->content}}
+                <div class="row card-body text-start">
+                    <div class="col-7 card-text">
+                        <h5>{{$book->series}}</h5>
+                        <ul>
+                            <li><span class="text-secondary font-weight-bold">author: </span>{{$book->author}}</li>
+                            <li><span class="text-secondary font-weight-bold">plot: </span>{{$book->plot}}</li>
+                            <li><span class="text-secondary font-weight-bold">publisher: </span>{{$book->publisher}}</li>
+                            <li><span class="text-secondary font-weight-bold">publication date: </span>{{$book->publication_date}}</li>
+                            <li><span class="text-secondary font-weight-bold">genre: </span>{{$book->genre}}</li>
+                        </ul>
                     </div>
-                </div> --}}
+                    <div class="col-5 bg-dark">
+                        {{--@if ( str_starts_with($book->cover_image, 'http'))
+                            <img src="{{ $book->cover_image }}" alt="book image" class="img-fluid">
+                        @else
+                            <img src="{{ asset('storage/' . $book->cover_image) }}" alt="book image" class="img-fluid">
+                        @endif--}}
+                    </div>
+                </div>
 
 
             </div>
