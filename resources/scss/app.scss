@@ -1,15 +1,18 @@
+@use './partials/guests/general' as *;
+
 @import '~bootstrap/scss/bootstrap';
+;
 
 *,
 *::before,
-*::after{
-    padding:0;
-    margin:0;
+*::after {
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
     list-style-type: none;
 }
 
-section#jumbo{
+section#jumbo {
     background-color: limegreen;
     height: 500px;
 }
