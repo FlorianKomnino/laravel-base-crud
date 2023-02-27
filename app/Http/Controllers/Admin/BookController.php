@@ -137,4 +137,10 @@ class BookController extends Controller
 
         return redirect()->route('admin.trashed');
      }
+
+     public function restore($id){
+        Book::where("id", $id)->withTrashed()->restore();
+
+        return redirect()->route('admin.trashed');
+     }
 }

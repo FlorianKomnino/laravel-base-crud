@@ -35,6 +35,7 @@
 
                             <td>
                                 <div class="actionButtons d-flex">
+                                    <a href="{{ route('admin.restore', $book->id) }}" class="btn btn-sm btn-success">Restore</a>
                                     <form action="{{route('admin.forceDelete', $book->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
