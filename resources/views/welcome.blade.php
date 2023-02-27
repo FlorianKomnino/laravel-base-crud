@@ -8,8 +8,8 @@
                 <h1 class="pb-3">
                     Welcome to My Favorite Books Store
                 </h1>
-                <a href="" class="btn btn-info">
-                    Click here to see all our books
+                <a href="#" class="btn btn-info">
+                    Click here to see our books
                 </a>
             </div>
         </div>
