@@ -17,6 +17,11 @@
             <a href="{{route('admin.trashed')}}" class="btn btn-warning">
                 Trash
             </a>
+            <form class="d-flex mt-2 d-inline w-25" action="{{ route("admin.search") }}" method="POST">
+                @csrf
+                <input class="form-control me-2" name="search">
+                <button class="btn btn-success" type="submit">Search</button>
+            </form>
         </div>
         <div class="col-12">
             <table class="table">
