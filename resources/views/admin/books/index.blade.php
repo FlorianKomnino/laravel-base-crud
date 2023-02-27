@@ -14,6 +14,9 @@
             <a href="{{route('admin.books.create')}}" class="btn btn-success">
                 Create new book
             </a>
+            <a href="{{route('admin.trashed')}}" class="btn btn-warning">
+                Trash
+            </a>
         </div>
         <div class="col-12">
             <table class="table">

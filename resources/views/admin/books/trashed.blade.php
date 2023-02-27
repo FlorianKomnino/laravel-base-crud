@@ -11,8 +11,8 @@
             @endif
         </div>
         <div class="col-12">
-            <a href="{{route('admin.books.create')}}" class="btn btn-success">
-                Create new book
+            <a href="{{route('admin.books.index')}}" class="btn btn-success">
+                Back to book table
             </a>
         </div>
         <div class="col-12">
