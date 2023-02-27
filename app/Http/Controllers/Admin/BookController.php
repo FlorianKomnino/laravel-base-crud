@@ -5,9 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Validation\Rule;
 
 class BookController extends Controller
 {
+    protected $rules= [
+        'isbn_13'=>'required|unique:books|size:13|string',
+        'title'=>'required|string|min:2|max:80',
+        'series'=>'required|string|min:2|max:50',
+        'author'=>'required|string|min:2|max:100|regex:/^[a-zA-Z ]+$/',
+        'publisher'=> 'required|string|min:2|max:80',
+        'publication_date'=> 'required|intiger|between:1450, 2023|',
+        'plot'=>'required|string|min:15|max:65535',
+        'genre'=> 'required|string|min:2|max:40',
+        'cover_image'=>'required|string|min:5|max:65535'
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -37,8 +50,9 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $data= $request->validate();
-        
+        $rules = $this->rules;
+        $data= $request->validate($rules);
+
         $newBook= new Book();
         $newBook->fill($data);
         $newBook->save();
@@ -77,7 +91,9 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        $data= $request->validate();
+        $rules = $this->rules;
+        $rules['isbn_13']=['required', 'size:13', 'string', Rule::unique('books')->ignore($book->id)];
+        $data= $request->validate($rules);
 
         $book->update($data);
     
