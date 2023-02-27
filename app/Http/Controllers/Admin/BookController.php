@@ -28,7 +28,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books= Book::all();
+        $books= Book::orderBy('id')->paginate(15);
         return view('admin.books.index', compact('books'));
     }
 
@@ -68,7 +68,9 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view('admin.books.show', compact('book'));
+        $previousBook = Book::where('id', '<', $book->id)->orderBy('id')->first();
+        $nextBook = Book::where('id', '>', $book->id)->orderBy('id', 'DESC')->first();
+        return view('admin.books.show', compact('book', 'previousBook', 'nextBook'));
     }
 
     /**

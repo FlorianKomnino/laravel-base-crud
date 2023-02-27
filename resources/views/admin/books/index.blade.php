@@ -36,7 +36,7 @@
                             <td>
                                 <div class="actionButtons d-flex">
                                     <a href="{{route('admin.books.show', $book->id)}}" class="btn btn-sm btn-primary">Show</a>
-                                    <a href="{{route('admin.books.edit', $book->id)}}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="{{route('admin.books.edit', $book->id)}}" class="btn btn-sm btn-warning mx-2">Edit</a>
                                     <form action="{{route('admin.books.destroy', $book->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -55,5 +55,6 @@
             {{-- {{ $books->links() }} --}}
         </div>
     </div>
+    {{$books->links()}}
 </div>
 @endsection
