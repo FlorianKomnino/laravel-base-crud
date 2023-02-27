@@ -127,13 +127,14 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Book $book
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
 
-     public function forceDelete(Book $book){
-        $book->forceDelete();
+     public function forceDelete($id){
 
-        redirect()->route('admin.books.trash');
+        Book::where("id", $id)->withTrashed()->forceDelete();
+
+        return redirect()->route('admin.trashed');
      }
 }
