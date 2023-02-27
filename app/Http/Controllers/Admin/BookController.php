@@ -101,7 +101,7 @@ class BookController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Soft delete the specified resource from storage.
      *
      * @param  Book $book
      * @return \Illuminate\Http\Response
@@ -114,7 +114,7 @@ class BookController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of trash.
      *
      * @return \Illuminate\Http\Response
      */
@@ -132,15 +132,30 @@ class BookController extends Controller
      */
 
      public function forceDelete($id){
-
+        // keep forceDelete title
+        $book= Book::onlyTrashed()->where('id', $id)->first();
+        $titleRestoreBook= $book->title;
+        
         Book::where("id", $id)->withTrashed()->forceDelete();
-
-        return redirect()->route('admin.trashed');
+        return redirect()->route('admin.trashed')->with("message", "$titleRestoreBook è stato cancellato definitivamente")->with("alert-type", "warning");;
      }
+
+     /**
+     * Restore the specified resource from soft delete.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
 
      public function restore($id){
+        // keep restore title
+        $book= Book::onlyTrashed()->where('id', $id)->first();
+        $titleRestoreBook= $book->title;
+
         Book::where("id", $id)->withTrashed()->restore();
 
-        return redirect()->route('admin.trashed');
+        return redirect()->route('admin.trashed')->with("message", "$titleRestoreBook è stato ripristinato")->with("alert-type", "success");;
      }
+
+   
 }
