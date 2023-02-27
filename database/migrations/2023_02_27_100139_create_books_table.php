@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('series', 50);
             $table->string('author', 100);
             $table->string('publisher', 80);
-            $table->date('pubblication_date');
+            $table->date('publication_date');
             $table->text('plot');
             $table->string('genre', 40);
             $table->text('cover_image');
