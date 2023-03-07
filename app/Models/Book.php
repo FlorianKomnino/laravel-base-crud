@@ -35,4 +35,8 @@ class Book extends Model
     protected $dates = [
         'publication_date',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
