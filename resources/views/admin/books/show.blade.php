@@ -12,7 +12,7 @@
                     <div class="col-7 card-text">
                         <h5>{{$book->series}}</h5>
                         <ul>
-                            <li><span class="text-secondary font-weight-bold">author: </span>{{$book->author}}</li>
+                            <li><span class="text-secondary font-weight-bold">author: </span>{{ $book->author->name}} {{ $book->author->surname }}</li>
                             <li><span class="text-secondary font-weight-bold">plot: </span>{{$book->plot}}</li>
                             <li><span class="text-secondary font-weight-bold">publisher: </span>{{$book->publisher}}</li>
                             <li><span class="text-secondary font-weight-bold">publication date: </span>{{$book->publication_date}}</li>

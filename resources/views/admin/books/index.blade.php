@@ -34,7 +34,7 @@
                         <tr>
                             <th scope="row">{{ $book->id }}</th>
                             <td>{{ $book->title }}</td>
-                            <td>{{ $book->author }}</td>
+                            <td>{{ $book->author->name}} {{ $book->author->surname }}</td>
 
                             <td>
                                 <div class="actionButtons d-flex">
