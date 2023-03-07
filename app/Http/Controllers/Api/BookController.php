@@ -19,7 +19,7 @@ class BookController extends Controller
 
         return response()->json([
             'success' => true,
-            'result' => $books,
+            'results' => $books,
         ]);
     }
 
@@ -54,7 +54,7 @@ class BookController extends Controller
     {
         return response()->json([
             'success' => true,
-            'result' => $book,
+            'results' => $book,
         ]);
     }
 
