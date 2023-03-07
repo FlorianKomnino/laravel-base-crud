@@ -36,6 +36,10 @@ class Book extends Model
         'publication_date',
     ];
 
+    public function author(){
+        return $this->belongsTo(Author::class);
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }
