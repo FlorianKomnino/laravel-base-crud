@@ -221,7 +221,7 @@ class BookController extends Controller
      */
     public function search(Request $request)
     {
-        $projects = Book::where("title", "LIKE", $request->title . "%")->orderBy("date", "DESC")->paginate(6);
-        return view("admin.project.index", compact("projects"));
+        $books = Book::where('title', 'LIKE', "$request->search.%")->get();
+        return view('admin.books.index', compact('books'));
     }
 }
